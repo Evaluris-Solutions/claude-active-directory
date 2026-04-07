@@ -29,7 +29,12 @@
 | **Trust** | Relationship allowing authentication across domains/forests; direction and type affect attack paths. |
 | **SID filtering** | Trust security feature limiting which SIDs from a trusted domain are honored. |
 | **Selective authentication** | Restricts which principals from a trusted forest/domain can authenticate to resources. |
-| **AD CS / PKI** | Certificate Services; enterprise CAs issue certs; misconfigured **templates** map to **ESC** abuse categories (ESC1–ESC8). |
-| **ESC (AD CS)** | Community naming for certificate-template abuse scenarios (e.g. enrollee-supplied subject, agent enrollment). |
+| **AD CS / PKI** | Certificate Services; enterprise CAs issue certs; misconfigured **templates** and **CA/DC policy** map to **ESC** abuse categories (ESC1–ESC11 in community tooling). |
+| **ESC (AD CS)** | Community naming for certificate abuse scenarios — **ESC1–ESC8** (templates, agents, web/Relay surfaces); **ESC9–ESC11** extend to template **NO_SECURITY_EXTENSION**, **certificate mapping** / strong-binding posture, and **CA RPC** encryption — see `skills/ad-cs-pki/SKILL.md`. |
+| **Certificate mapping / strong binding** | How a certificate is bound to an AD account (UPN, SAN, SID in extensions); DC **StrongCertificateBindingEnforcement** and related settings affect whether mapping attacks are viable — document values in evidence, cite current Microsoft guidance. |
+| **Coerced authentication (concept)** | Inducing a host or account to authenticate to an attacker-influenced target; often discussed alongside **relay** and **AD CS**; named families (e.g. MS-RPC coercion, print spooler abuse) are awareness-only — **ROE** governs any testing. |
+| **EPA** | Extended Protection for Authentication; channel-binding style mitigations for some authentication stacks when enabled — high-level hardening context, not an evasion topic. |
+| **gMSA** | Group Managed Service Account; passwords rotated by the directory; service accounts using gMSA change **credential theft** narratives vs static passwords. |
+| **LDAP signing / LDAPS** | Signing requirements and **LDAPS** (TLS) affect whether simple LDAP binds work and how “clear” traffic is; document policy in recon appendix. |
 
 For methodology, see the `skills/` directory in this repository.

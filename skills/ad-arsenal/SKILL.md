@@ -1,6 +1,6 @@
 ---
 name: ad-arsenal
-description: Active Directory offensive toolkit patterns — Impacket examples, CrackMapExec one-liners, Certipy workflow hints, SharpHound, secretsdump patterns, OPSEC and event log awareness, lab versus production caution. No exploit code delivery; operator supplies tools. Pentest, red team, Kerberos.
+description: Active Directory toolkit patterns — NetExec and CrackMapExec, Impacket, Certipy, SharpHound, Windows Event IDs for SOC narratives, MITRE mapping pointers, OPSEC and telemetry. Lab versus production caution. Pentest, red team, Kerberos.
 ---
 
 # AD Arsenal — Patterns and OPSEC
@@ -26,7 +26,27 @@ Customers often ask **what will show up in logs**. Typical classes:
 
 This is **not** an EDR evasion guide — use it to **set expectations** in kickoff and in the report **detection** subsection.
 
-Task-oriented **patterns** (placeholders: `DOMAIN`, `USER`, `PASS`, `DC`, `TARGET` — operator fills from ROE).
+### Windows Event IDs (reporting hints — verify on target OS)
+
+Use to enrich **detection / remediation** sections. IDs vary by auditing policy; **confirm** on the customer’s baseline.
+
+| ID (common) | Category | Relevance |
+|---------------|----------|-----------|
+| **4768** | Kerberos AS-REQ success | Issued TGT — account activity |
+| **4769** | Kerberos service ticket | TGS — includes Kerberoast-style request volume analysis |
+| **4776** | NTLM (domain controller) | Credential validation |
+| **5136** | Directory service object modified | ACL / attribute changes (e.g. sensitive writes) |
+| **4886 / 4887 / 4888** (CA) | Certificate services | Enrollment and issuance audit (exact set depends on CA auditing) |
+
+Cite **Microsoft** documentation for the **Windows Server** version in scope when arguing detectability.
+
+---
+
+## Task-oriented tool patterns
+
+Placeholders: `DOMAIN`, `USER`, `PASS`, `DC`, `TARGET`, `SUBNET` — operator fills from ROE.
+
+**NetExec** is the actively maintained successor to **CrackMapExec** in many environments; **command shapes are the same** (`netexec` vs `crackmapexec`). Use whichever binary the customer approves.
 
 ### Kerberos tickets (Impacket / Rubeus on host)
 
@@ -47,17 +67,19 @@ ldapsearch -x -H ldap://DC -D "USER@DOMAIN" -w 'PASS' -b "DC=domain,DC=local" \
 
 Adapt filters to the [ad-recon](../ad-recon/SKILL.md) cookbook (SPN, `DONT_REQUIRE_PREAUTH`, delegation bits).
 
-### SMB (CrackMapExec / enum)
+### SMB (NetExec / CrackMapExec)
 
 ```bash
-crackmapexec smb SUBNET -u USER -p 'PASS' --shares
-crackmapexec smb DC -u USER -p 'PASS' --pass-pol
+netexec smb SUBNET -u USER -p 'PASS' --shares
+netexec smb DC -u USER -p 'PASS' --pass-pol
+# Equivalent: crackmapexec smb ...
 ```
 
 ### AD CS (Certipy)
 
 ```bash
 certipy find -u USER@DOMAIN -p 'PASS' -dc-ip DC
+# Many builds support a vulnerable-oriented view — see Certipy --help (e.g. -vulnerable) per version
 # Template-specific requests only with explicit ROE
 certipy req -u USER@DOMAIN -p 'PASS' -dc-ip DC -ca 'CA_NAME' -template TEMPLATE_NAME
 ```
@@ -77,9 +99,9 @@ certipy req -u USER@DOMAIN -p 'PASS' -dc-ip DC -ca 'CA_NAME' -template TEMPLATE_
 
 - `GetADUsers.py`, `GetUserSPNs.py`, `GetNPUsers.py`, `secretsdump.py`, `ticketer.py` — authorized domains only.
 
-## CrackMapExec
+## NetExec / CrackMapExec
 
-- SMB auth, `--shares`, `--pass-pol` — lockout math on sprays.
+- SMB auth, `--shares`, `--pass-pol` — lockout math on sprays; **same** module names across forks.
 
 ## Certipy
 
@@ -97,4 +119,4 @@ certipy req -u USER@DOMAIN -p 'PASS' -dc-ip DC -ca 'CA_NAME' -template TEMPLATE_
 
 ## References
 
-- Microsoft AD security docs, BloodHound documentation, CERTipy ESC matrix (community).
+- Microsoft AD security docs, BloodHound documentation, Certipy / SpecterOps **Certified Pre-Owned** lineage for ESC labels — see [ad-resources](../../docs/ad-resources.md).

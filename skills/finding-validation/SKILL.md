@@ -1,6 +1,6 @@
 ---
 name: finding-validation
-description: Validate Active Directory penetration test findings before client delivery — reproducibility, scope membership, blast radius in forest, false positive elimination, whether misconfiguration vs missing patch, evidence completeness. Seven-question style gate adapted for internal assessments. Pentest quality, AD findings.
+description: Validate AD pentest findings — reproducibility, scope, blast radius, false positives, MITRE ATT&CK mapping, severity rubric, evidence completeness. Seven-question gate for internal assessments. Pentest quality.
 ---
 
 # Finding Validation (internal)
@@ -52,6 +52,23 @@ Use alongside the customer risk model. Heuristic for **internal** discussion:
 - **Lower** — **Theoretical** graph edges, **visible** but **blocked** enrollments, **informational** LDAP exposure without demonstrated misuse.
 
 **CVSS** is optional for management summaries; the **narrative** (who, what forest, which trust) usually matters more for AD remediation prioritization.
+
+---
+
+## MITRE ATT&CK mapping (optional but best-in-class)
+
+Enterprise and **blue-team** stakeholders often expect **technique IDs** alongside narrative severity. When you **PASS** a finding, add one row to an internal tracker:
+
+| Your finding (examples) | ATT&CK tactic (illustrative) | Example technique / sub-technique IDs — **verify at [attack.mitre.org](https://attack.mitre.org/)** |
+|-------------------------|------------------------------|--------------------------------------------------------------------------------------------------------|
+| Kerberoast → cracked service | Credential Access | [T1558](https://attack.mitre.org/techniques/T1558/) Steal or Forge Kerberos Tickets — sub **.003** Kerberoasting |
+| AS-REP roast | Credential Access | [T1558](https://attack.mitre.org/techniques/T1558/) — sub **.004** AS-REP Roasting |
+| DCSync / replication abuse | Credential Access | [T1003](https://attack.mitre.org/techniques/T1003/) OS Credential Dumping — sub **.006** DCSync |
+| NTLM relay / forced auth | Credential Access / Initial Access | [T1187](https://attack.mitre.org/techniques/T1187/) Forced Authentication; relay varies by scenario |
+| AD CS certificate abuse | Credential Access | [T1649](https://attack.mitre.org/techniques/T1649/) Steal or Forge Authentication Certificate (verify wording per ATT&CK version) |
+| Pass-the-ticket / forged tickets | Credential Access | [T1550](https://attack.mitre.org/techniques/T1550/) Use Alternate Authentication Material — sub **.003** Pass the Ticket |
+
+**Rules:** Only map behaviors you **demonstrated**. Prefer **sub-techniques** when they exist. If ATT&CK renumbers, update the appendix — do not treat this table as canonical forever.
 
 ## Alignment
 

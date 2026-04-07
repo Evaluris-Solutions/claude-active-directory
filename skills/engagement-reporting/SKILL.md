@@ -1,6 +1,6 @@
 ---
 name: engagement-reporting
-description: Internal penetration test and red team report writing for Active Directory engagements — executive summary, scope and limitations, methodology, findings with severity and CVSS where appropriate, evidence bundles, remediation, prioritized fix order, timeline. Not bug bounty platform format. Pentest report, AD assessment.
+description: Internal pentest and red team reports for Active Directory — executive summary, scope, methodology, findings with AD fields, MITRE ATT&CK appendix optional, CVSS when requested, evidence, remediation. Pentest report.
 ---
 
 # Engagement Reporting
@@ -26,7 +26,7 @@ description: Internal penetration test and red team report writing for Active Di
    - **Evidence** — commands, redacted output, screenshots
    - Remediation (specific: GPO, template, ACL, not “use strong passwords” alone)
 5. **Roadmap** — quick wins vs structural fixes.
-6. **Appendix** — command log if required.
+6. **Appendix** — command log if required; **MITRE ATT&CK mapping table** (optional — see [finding-validation](../finding-validation/SKILL.md)) when the customer expects detection-engineering alignment.
 
 ## Tone
 
@@ -36,3 +36,7 @@ description: Internal penetration test and red team report writing for Active Di
 ## Severity
 
 Align with customer’s risk model; default to **impact × likelihood** in the domain context. For AD, prefer **narrative severity** (Tier 0 / forest / trust) per `finding-validation`; add **CVSS** only when the customer expects it.
+
+### MITRE ATT&CK column (optional)
+
+When included, each finding may add: **Tactic**, **Technique ID**, **Procedure** (one sentence: what was actually executed in scope). Keep IDs current with the ATT&CK release date in the report footer.

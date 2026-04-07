@@ -27,7 +27,7 @@
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8+-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-D97706.svg?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai/claude-code)
 
-**0xaxgb** · **[Evaluris Solutions](https://evaluris.ae)** · DoOS
+**Evaluris Team** · **[Evaluris Solutions](https://evaluris.ae)** · DoOS
 
 <br>
 
@@ -115,9 +115,9 @@ claude
 | `ad-recon` | DNS, LDAP, SMB, users, passwords policy, SPNs, trusts |
 | `ad-attack-classes` | Kerberoasting, AS-REP, delegation, ACL abuse, lateral movement, etc. |
 | `ad-arsenal` | Commands, OPSEC, lab-safe patterns |
-| `ad-cs-pki` | AD CS templates, ESC patterns, evidence bundles |
-| `engagement-reporting` | Executive + technical reporting |
-| `finding-validation` | Gates before reporting |
+| `ad-cs-pki` | AD CS templates, ESC1–ESC11 evidence, DC mapping posture |
+| `engagement-reporting` | Executive + technical reporting, optional MITRE appendix |
+| `finding-validation` | Gates, AD false positives, severity rubric, ATT&CK mapping |
 
 ---
 
@@ -162,4 +162,4 @@ claude-active-directory/
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Copyright **Evaluris Solutions**. Authored by **0xaxgb** — [https://evaluris.ae](https://evaluris.ae).
+MIT — see [LICENSE](LICENSE). Copyright **Evaluris Solutions**. Authored by **Evaluris Team** — [https://evaluris.ae](https://evaluris.ae).

@@ -1,19 +1,19 @@
 ---
 name: active-directory
-description: Claude Active Directory — authorized Active Directory and Windows domain offensive security master skill. Rules of engagement, reconnaissance, Kerberos and NTLM attacks, delegation and ACL abuse, AD CS, lateral movement, validation, engagement reporting. Evaluris Solutions, pentest, red team, Kerberos, LDAP, BloodHound.
+description: Claude Active Directory — authorized AD offensive security master skill. ROE, recon, Kerberos and NTLM, coercion awareness, delegation and ACL abuse, AD CS ESC1–ESC11, lateral movement, MITRE-ready validation and reporting. Evaluris Solutions, pentest, red team.
 ---
 
 # Claude Active Directory (root skill)
 
 This file mirrors the master workflow in [`skills/ad-pentest/SKILL.md`](skills/ad-pentest/SKILL.md). Install copies skills into `~/.claude/skills/` via `./install.sh`.
 
-**Author:** 0xaxgb · **[Evaluris Solutions](https://evaluris.ae)**
+**Author:** Evaluris Team · **[Evaluris Solutions](https://evaluris.ae)**
 
 ---
 
 # Active Directory — Master Engagement Workflow
 
-**Claude Active Directory** by [Evaluris Solutions](https://evaluris.ae) (0xaxgb). For **authorized testing only** — written ROE before any action.
+**Claude Active Directory** by [Evaluris Solutions](https://evaluris.ae) — **Evaluris Team**. For **authorized testing only** — written ROE before any action.
 
 ## The question that matters
 
@@ -90,7 +90,7 @@ When you confirm technique A, hunt for B and C on the same engagement:
 
 | Category | Examples |
 |----------|----------|
-| Enumeration | ldapsearch, rpcclient, CrackMapExec, windapsearch, bloodyAD |
+| Enumeration | ldapsearch, rpcclient, NetExec / CrackMapExec, windapsearch, bloodyAD |
 | Kerberos | Impacket suite, Rubeus (Windows), Certipy (AD CS) |
 | Graph | SharpHound / BloodHound CE, bloodhound-python |
 | Relay | ntlmrelayx, mitm6 (only with authorization) |
@@ -99,9 +99,13 @@ Scripts in this repo **check** for binaries and structure output; they do not re
 
 ---
 
-## Reporting
+## Reporting and deliverable standards
 
-Use **`skills/engagement-reporting/SKILL.md`**. Internal/red-team style: scope, methodology, findings with severity, evidence, remediation.
+- **`skills/engagement-reporting/SKILL.md`** — structure, AD object fields, optional **MITRE ATT&CK** appendix.
+- **`skills/finding-validation/SKILL.md`** — validation gates and **ATT&CK** mapping (verify IDs on [attack.mitre.org](https://attack.mitre.org/)).
+- **AD CS** — cover **ESC1–ESC11** when tooling reports them; see **`skills/ad-cs-pki/SKILL.md`**.
+
+Internal / red-team style: scope, methodology, findings with severity, evidence, remediation.
 
 ---
 

@@ -12,12 +12,12 @@ This repo is a **Claude Code** plugin for **authorized Active Directory / Window
 |------|--------|
 | `skills/ad-pentest/` | Master workflow — ROE, enum → creds → escalation → lateral → objectives |
 | `skills/ad-methodology/` | Engagement mindset, phased workflow, tool routing, session discipline |
-| `skills/ad-recon/` | DNS/LDAP/SMB, users, Kerberos pre-auth, SPNs, BloodHound collection prep |
-| `skills/ad-attack-classes/` | Kerberos, NTLM relay, delegation, ACL abuse, AD CS abuse patterns, coercion |
-| `skills/ad-arsenal/` | Command patterns, OPSEC notes, safe lab usage |
-| `skills/ad-cs-pki/` | AD CS, templates, ESC matrix triage |
-| `skills/engagement-reporting/` | Internal/red-team style reporting |
-| `skills/finding-validation/` | Validation gates before reporting |
+| `skills/ad-recon/` | DNS, trusts, LDAP/LDAPS & signing, gMSA, SMB, Kerberos, BloodHound collection |
+| `skills/ad-attack-classes/` | Kerberos, NTLM relay, coercion awareness, delegation, ACL abuse, SQL pivot |
+| `skills/ad-arsenal/` | NetExec/CME patterns, Impacket, Certipy, Event IDs, MITRE pointers, OPSEC |
+| `skills/ad-cs-pki/` | AD CS, templates, ESC1–ESC11 evidence, DC mapping posture |
+| `skills/engagement-reporting/` | Internal reports, AD fields, optional MITRE appendix |
+| `skills/finding-validation/` | Gates, AD false positives, severity rubric, ATT&CK mapping |
 
 ### Commands (13 slash commands — same filenames)
 

@@ -1,6 +1,6 @@
 ---
 name: ad-attack-classes
-description: Active Directory attack techniques — Kerberoasting, AS-REP roasting, Golden and Silver tickets (lab sensitivity), unconstrained and constrained delegation and RBCD, ACL abuse, DCSync prerequisites, NTLM relay concepts, LAPS, shadow credentials, GPP, trust paths, AD-joined SQL lateral pivot, lateral movement protocol matrix. For authorized pentest and red team. Kerberos, NTLM, delegation, ACL, lateral movement.
+description: Active Directory attack techniques — Kerberoasting, AS-REP roasting, coerced authentication awareness, Golden and Silver tickets (lab sensitivity), delegation and RBCD, ACL abuse, DCSync, NTLM relay, LAPS, shadow credentials, GPP, trust paths, AD-joined SQL, lateral movement matrix. Authorized pentest and red team. Kerberos, NTLM, delegation.
 ---
 
 # AD Attack Classes (reference)
@@ -20,6 +20,18 @@ description: Active Directory attack techniques — Kerberoasting, AS-REP roasti
 | **Spray** | Only with **written approval** and lockout policy math |
 | **NTLM capture** | Responder / IPv6 / coercion families — **scope and stealth** per ROE |
 | **Coercion → auth** | Often paired with relay or delegation abuse; document each hop |
+
+### Coerced authentication (awareness — no step-by-step)
+
+**Coercion** means inducing a **machine or privileged account** to authenticate to an **attacker-influenced** sink (listener, relay target, or vulnerable service). It is a **prerequisite class** for many **NTLM relay** and **AD CS (e.g. ESC8/ESC11)** narratives — not every environment is vulnerable; **validate** with tooling output and **ROE**.
+
+| Family (examples — cite in reports at high level) | Notes |
+|---------------------------------------------------|--------|
+| **MS-RPC coercion** (e.g. PetitPotam-style) | Often discussed for **forced machine auth** to a sink — **destructive / noisy**; explicit approval |
+| **Spooler / print** surface | Historical **coercion** primitives against spooler endpoints — patch and exposure dependent |
+| **WebClient / HTTP** helpers | Sometimes chained for relay paths — scope **HTTP** hosts in ROE |
+
+Document **which primitive** you tested (or excluded), **source and target** IPs, and **why** the chain stopped (patched, blocked, out of scope). Map to **[MITRE](https://attack.mitre.org/)** *Forced Authentication*–style techniques where applicable — see `finding-validation`.
 
 ---
 

@@ -5,7 +5,7 @@
 ### Product pivot
 
 - **Claude Active Directory** replaces the prior bug-bounty-focused plugin. This release is an **authorized Active Directory / Windows domain offensive security** harness: reconnaissance, credential and privilege attacks, AD CS/PKI review, reporting, and validation — for internal assessments and red teams with explicit rules of engagement only.
-- **Attribution**: [Evaluris Solutions](https://evaluris.ae). Primary author: **0xaxgb**.
+- **Attribution**: [Evaluris Solutions](https://evaluris.ae). Primary author: **Evaluris Team**.
 - **License**: MIT; copyright **Evaluris Solutions** (see [LICENSE](LICENSE)).
 
 ### Structure (unchanged counts)

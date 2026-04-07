@@ -1,6 +1,6 @@
 ---
 name: ad-methodology
-description: Active Directory penetration testing methodology — engagement phases, non-linear routing when stuck, tool selection by phase (recon vs creds vs escalation), session discipline, switching context when a path dead-ends, red team vs internal pentest pacing, OPSEC notes. Use when planning or unblocking an AD assessment. Kerberos, Windows domain, red team, pentest.
+description: Active Directory penetration testing methodology — phases, skill reading order, optional PingCastle-style baselines, stuck routing, tool selection, MITRE-ready reporting pointers, session discipline, red team vs internal pacing. Kerberos, Windows domain, pentest.
 ---
 
 # AD Methodology — How to Run the Engagement
@@ -59,3 +59,19 @@ Use this as a **default navigation** order; loop back whenever a phase stalls.
 - Time-box noisy actions.
 - Log your commands for the report appendix.
 - When rotating off a host, note what was attempted so `/resume` stays useful.
+
+---
+
+## Optional defensive baselines (read-only, if in scope)
+
+Some customers authorize **read-only** domain health tools (e.g. **PingCastle**-class scanners, vendor AD security dashboards) **in addition to** offensive validation.
+
+- Treat output as **prioritization hints**, not proof of exploitability — **offensive findings** still need **reproducible** evidence per ROE.
+- Align tool **version** and **ruleset** date in the methodology appendix.
+- If not in scope, state **“baseline scanner not used”** so the report scope is clear.
+
+---
+
+## MITRE ATT&CK (deliverable alignment)
+
+For **enterprise** and **detection-engineering** audiences, map confirmed behaviors to **[MITRE ATT&CK](https://attack.mitre.org/)** techniques (e.g. credential access, lateral movement). Use **[finding-validation](../finding-validation/SKILL.md)** for the mapping table pattern — **verify technique IDs** against the current ATT&CK release; do not invent sub-techniques.

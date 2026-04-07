@@ -1,6 +1,6 @@
 ---
 name: ad-recon
-description: Active Directory reconnaissance — DNS and AD DNS, domain and forest trusts, LDAP anonymous and authenticated enumeration, SMB signing posture, password policy and spray approval gates, Kerberos pre-authentication and SPN discovery, BloodHound collection methods, LDAP filter cookbook for common goals. Authorized testing only. Pentest, LDAP, Kerberos, BloodHound, trust relationships.
+description: Active Directory reconnaissance — DNS, trusts, LDAP/LDAPS and signing policy, gMSA discovery, SMB signing and legacy protocol notes, password spray gates, Kerberos SPN and pre-auth, BloodHound collection methods, LDAP filter cookbook. Authorized testing only. Pentest, LDAP, Kerberos, BloodHound.
 ---
 
 # AD Reconnaissance
@@ -57,6 +57,17 @@ Record **policy source** (default domain policy vs PSO) for the report appendix.
 
 ---
 
+## LDAP channel security (posture)
+
+Document for the **methodology appendix** — not a bypass guide.
+
+- **LDAPS** (TCP **636**) vs **LDAP** (**389**): note which you used; many environments **require signing** or **LDAPS** for simple binds per domain policy.
+- **LDAP signing** requirement: if binds fail or tools warn, record that **unsigned LDAP** is blocked — affects tool choice (e.g. `ldapsearch` StartTLS / LDAPS).
+- **Channel binding** for LDAP: when organizations enforce it, it raises the bar for certain **credential relay** narratives; cite **that enforcement was observed**, not how to defeat it.
+- **Anonymous LDAP** is usually **disabled**; document whether unauthenticated enumeration was **in scope** and **denied**.
+
+---
+
 ## LDAP — goals and filter cookbook
 
 Substitute `<BASE_DN>` and bind credentials per engagement. Filters use standard LDAP syntax; verify **bitwise** flags against current Microsoft documentation if results look wrong.
@@ -70,6 +81,7 @@ Substitute `<BASE_DN>` and bind credentials per engagement. Filters use standard
 | **Unconstrained delegation** (computer trusted for delegation) | Bitwise `userAccountControl` match for `TRUSTED_FOR_DELEGATION` on computer objects |
 | **Constrained delegation** fields | Inspect `msDS-AllowedToDelegateTo` on relevant principals |
 | **RBCD** | Inspect `msDS-AllowedToActOnBehalfOfOtherIdentity` on computer objects |
+| **gMSA** (Group Managed Service Accounts) | `(objectClass=msDS-GroupManagedServiceAccount)` — or search `msDS-ManagedPassword`–related attributes per tooling; informs **service account** risk narrative |
 | **Domain admins (example group)** | `(&(objectClass=user)(memberOf:1.2.840.113556.1.4.1941:=CN=Domain Admins,CN=Users,<BASE_DN>))` (adjust group DN) |
 
 **Useful attributes** (non-exhaustive): `sAMAccountName`, `userPrincipalName`, `servicePrincipalName`, `userAccountControl`, `memberOf`, `msDS-AllowedToDelegateTo`, `msDS-AllowedToActOnBehalfOfOtherIdentity`, `whenCreated`, `lastLogonTimestamp`.
@@ -78,7 +90,8 @@ Substitute `<BASE_DN>` and bind credentials per engagement. Filters use standard
 
 ## SMB
 
-- **Signing:** Note whether **required** or **enabled** on DCs, member servers, and workstations you are allowed to probe — affects **relay** hypotheses (often **off** for DCs; environment-specific).
+- **Signing:** Note whether **required** or **enabled** on DCs, member servers, and workstations you are allowed to probe — affects **relay** hypotheses (environment-specific; **EPA** and signing can block naive relay **to** patched services).
+- **SMBv1:** If observable (version negotiation or scanner output), record **legacy SMBv1** exposure as **risk context** — often a hygiene finding, not an AD auth bypass by itself.
 - **Null session / guest** — often disabled; document result.
 - Enumerate **shares** only on in-scope hosts and with approved accounts.
 

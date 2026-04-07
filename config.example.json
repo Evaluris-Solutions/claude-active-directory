@@ -1,0 +1,14 @@
+{
+  "roe_allowed_domains": [
+    "*.corp.local",
+    "corp.local"
+  ],
+  "roe_excluded_domains": [
+    "payments.corp.local"
+  ],
+  "dc_hosts": [],
+  "output_dir": "./findings",
+  "recon_dir": "./recon",
+  "reports_dir": "./reports",
+  "notes": "Copy to config.json and adjust per engagement. Use roe_checker / ScopeChecker for HTTP(S) targets."
+}

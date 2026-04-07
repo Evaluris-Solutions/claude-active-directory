@@ -1,0 +1,16 @@
+{
+  "hooks": [
+    {
+      "event": "SessionStart",
+      "command": "echo 'Claude Active Directory — confirm ROE before testing. /scope then /recon.'"
+    },
+    {
+      "event": "SessionStop",
+      "command": "echo 'Session ended. Save artifacts under findings/ and recon/. Run /validate on material issues.'"
+    },
+    {
+      "event": "Stop",
+      "command": "echo 'Engagement checkpoint: ROE still valid? Evidence saved for the report?'"
+    }
+  ]
+}

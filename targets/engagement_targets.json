@@ -1,0 +1,11 @@
+{
+  "targets": [
+    {
+      "name": "Example Corp",
+      "scope_domains": [
+        "corp.local"
+      ],
+      "notes": "Replace with real engagement data. Authorized testing only."
+    }
+  ]
+}

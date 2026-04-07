@@ -1,6 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="Claude Active Directory" width="280"/>
-  &nbsp;&nbsp;
+  <img src="logo.png" alt="Claude Active Directory" width="280"/><br/><br/>
   <img src="logo-2.png" alt="Evaluris Solutions" width="280"/>
 </p>
 

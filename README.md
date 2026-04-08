@@ -1,7 +1,14 @@
-<p align="center">
-  <img src="logo.png" alt="Claude Active Directory" width="280"/><br/><br/>
+<div align="center">
+  <table align="center" role="presentation" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="middle"><img src="logo.png" alt="Claude Active Directory" width="280"/></td>
+      <td width="20"></td>
+      <td valign="middle"><img src="logo-3.png" alt="Claude Active Directory" width="280"/></td>
+    </tr>
+  </table>
+  <br/>
   <img src="logo-2.png" alt="Evaluris Solutions" width="280"/>
-</p>
+</div>
 
 <div align="center">
 
@@ -31,11 +38,21 @@
 
 <br>
 
-```
-  13 commands  ·  7 AI agents  ·  8 skill domains
-  Kerberos · LDAP · AD CS · Delegation · BloodHound-style analysis
-  Optional: Burp MCP for HTTP surfaces (OWA, AD FS, enrollment web)
-```
+<p><strong>At a glance</strong></p>
+
+<table align="center" role="presentation" cellspacing="0" cellpadding="10">
+  <tr>
+    <td align="center" valign="top"><strong>13</strong><br />slash commands</td>
+    <td align="center" valign="middle" width="28">&nbsp;&nbsp;·&nbsp;&nbsp;</td>
+    <td align="center" valign="top"><strong>7</strong><br />AI agents</td>
+    <td align="center" valign="middle" width="28">·</td>
+    <td align="center" valign="top"><strong>8</strong><br />skill domains</td>
+  </tr>
+</table>
+
+<p><em>Kerberos · LDAP · AD CS · Delegation · BloodHound-style analysis</em></p>
+
+<p><sub>Optional integrations — <strong>Burp MCP</strong> for HTTP surfaces (OWA, AD FS, certificate enrollment web)</sub></p>
 
 </div>
 

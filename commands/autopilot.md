@@ -4,6 +4,16 @@ description: Phased autonomous checklist for AD engagements within ROE — not u
 
 # /autopilot
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/autopilot <domain>` (optional flags per engagement SOP) |
+| **ROE gate** | **Phase 1 must be** `/scope`; autopilot never overrides exclusions or spray/destructive bans. |
+| **Outputs** | Phase checklist state; reminders to `/validate` material findings. |
+| **Stop conditions** | Any ROE conflict → **pause** autopilot and return to human + `/scope`. |
+| **Related** | [`skills/ad-methodology`](../skills/ad-methodology/SKILL.md), [`commands/scope`](scope.md) |
+
 ## What this is
 
 A **disciplined phase loop** for operators using Claude — **not** permission to exceed ROE.

@@ -4,6 +4,16 @@ description: Rank and prioritize Active Directory attack surface — high-value 
 
 # /surface
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/surface <domain>` (domain aligns engagement notes) |
+| **ROE gate** | Prioritization must not **drive** testing of excluded Tier-0 or out-of-scope forests; `/scope` must allow the ranked targets. |
+| **Outputs** | Ranked host/user/template list with rationale; optional `tools/mindmap.py` hints. |
+| **Stop conditions** | Graph data stale or from wrong session → refresh recon first. |
+| **Related** | [`skills/ad-methodology`](../skills/ad-methodology/SKILL.md), [`commands/recon`](recon.md) |
+
 Prioritize **where to spend time** after recon and partial collection.
 
 ## Inputs

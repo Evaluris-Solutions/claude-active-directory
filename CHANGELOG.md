@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- **Governance:** [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), GitHub issue + PR templates, CI workflow (`pytest` on Python 3.8 and 3.12).
+- **Install:** Root [`install.sh`](install.sh) delegates to [`scripts/install.sh`](scripts/install.sh) (`claude` | `cursor` | `gemini` | `all`); added [`scripts/convert.sh`](scripts/convert.sh) for flat skill export.
+- **README:** Landing-page layout — MITRE-aligned skill table, slash command contracts with ROE gates, agent I/O and handoffs, multi-tool install.
+- **Skills / commands / agents:** `Use when` activation phrasing, examples, troubleshooting, standardized **Command contract** tables on all 13 commands; expanded agent scope and handoff tables.
+
 ## v1.0.0 — Claude Active Directory (Apr 2026)
 
 ### Product pivot

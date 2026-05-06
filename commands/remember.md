@@ -4,6 +4,16 @@ description: Log a technique, finding, or pattern to engagement memory for later
 
 # /remember
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/remember` |
+| **ROE gate** | Do not log **classified** customer secrets or cleartext production passwords; follow data-handling in ROE. |
+| **Outputs** | JSONL / markdown pattern entries via `memory/` modules or customer-approved `findings/` notes. |
+| **Stop conditions** | If storage location is unclear → operator chooses customer-approved path before logging. |
+| **Related** | [`memory/hunt_journal.py`](../memory/hunt_journal.py), [`commands/resume`](resume.md) |
+
 Append structured entries for:
 
 - **Technique** that worked (e.g. Certipy ESC1 on template X)

@@ -14,9 +14,11 @@
 
 # Claude Active Directory
 
+**ROE-first AI harness for Active Directory offensive security** — eight skill domains, thirteen slash commands, seven agents, validation gates, and evidence-ready reporting for authorized internal assessments and red teams.
+
 ### The power of structured AI assistance for Active Directory offensive security
 
-**Claude Active Directory** turns **Claude Code** into an engagement-aware copilot: eight skill domains, thirteen slash commands, seven agents, validation gates, and ROE-safe orchestration—so operators spend less time reinventing methodology and more time proving impact with defensible evidence.
+**Claude Active Directory** turns **Claude Code** (and compatible editors) into an engagement-aware copilot so operators spend less time reinventing methodology and more time proving impact with defensible evidence.
 
 *Part of the **Department of Offensive Security (DoOS)** — [Evaluris Solutions](https://evaluris.ae).*
 
@@ -58,97 +60,106 @@
 
 ---
 
-## Documentation
+## Skill domains (8) and MITRE ATT&CK alignment
+
+Tactics are **illustrative** — many skills span multiple tactics. Map findings to [MITRE ATT&CK](https://attack.mitre.org/) in your report when the customer expects it (see `finding-validation` skill).
+
+| Skill | Primary MITRE tactics (examples) | One-line purpose |
+|-------|----------------------------------|------------------|
+| [ad-pentest](skills/ad-pentest/SKILL.md) | Discovery, Credential Access, Privilege Escalation, Lateral Movement | Master workflow: ROE, phases, path hunting, deliverable standards |
+| [ad-methodology](skills/ad-methodology/SKILL.md) | Discovery → Impact (orchestration) | Engagement pacing, stuck routing, skill reading order, session discipline |
+| [ad-recon](skills/ad-recon/SKILL.md) | Discovery | DNS, trusts, LDAP/LDAPS, SMB, Kerberos signals, BloodHound collection choice |
+| [ad-attack-classes](skills/ad-attack-classes/SKILL.md) | Credential Access, Privilege Escalation, Lateral Movement | Technique reference, coercion awareness, lateral matrix, trust/SQL notes |
+| [ad-arsenal](skills/ad-arsenal/SKILL.md) | Discovery, Credential Access | Tool patterns, Event IDs, OPSEC / telemetry classes |
+| [ad-cs-pki](skills/ad-cs-pki/SKILL.md) | Credential Access, Privilege Escalation | AD CS / PKI, ESC evidence bundles, DC certificate posture |
+| [finding-validation](skills/finding-validation/SKILL.md) | — (quality gate) | False positives, severity rubric, ATT&CK mapping pattern |
+| [engagement-reporting](skills/engagement-reporting/SKILL.md) | — (reporting) | Executive + technical structure, AD finding fields |
+
+**Glossary:** [docs/ad-glossary.md](docs/ad-glossary.md) · **External links:** [docs/ad-resources.md](docs/ad-resources.md)
+
+---
+
+## Slash commands (13) — syntax, purpose, ROE gate
+
+| Command | Invocation | Purpose | ROE gate |
+|---------|------------|---------|----------|
+| `/scope` | `/scope` or `/scope <domain>` | Confirm written authorization, allow lists, exclusions, destructive rules | **Canonical ROE check** — run first on every engagement |
+| `/recon` | `/recon <domain>` | DNS, LDAP, SMB, Kerberos discovery, BH prep | Confirm `/scope` or equivalent ROE; no out-of-scope hosts |
+| `/hunt` | `/hunt <domain>` | Credential and escalation phase within ROE | **Must** align with spray/relay/destruction rules from ROE |
+| `/validate` | `/validate` | Validate a finding before client report | ROE + evidence replay |
+| `/triage` | `/triage` | Quick validation pass | Same as validate (lighter) |
+| `/report` | `/report` | Engagement-style technical report | Scope and limitations from ROE |
+| `/chain` | `/chain` | Multi-hop attack path narrative | Only in-scope primitives |
+| `/surface` | `/surface` | Prioritize paths / hosts from notes or graph | ROE for any follow-on testing |
+| `/autopilot` | `/autopilot` | Phased ROE-safe checklist | No steps outside ROE |
+| `/intel` | `/intel` | DC/patch intel | Target OS must be in scope |
+| `/resume` | `/resume` | Resume engagement context | N/A (read-mostly) |
+| `/remember` | `/remember` | Log to engagement memory | No classified customer data in repo |
+| `/web3-audit` | `/web3-audit` | AD CS / PKI audit (legacy filename) | CA/web enrollment hosts in scope |
+
+---
+
+## Agents (7) — role, I/O, handoff
+
+| Agent | Role | Inputs | Outputs | Handoff / stop |
+|-------|------|--------|---------|-----------------|
+| [recon-agent](agents/recon-agent.md) | Recon guidance | Domain, ROE, optional prior notes | `recon/<domain>/` layout, enum summary | **recon-ranker** or **validator** when paths known |
+| [recon-ranker](agents/recon-ranker.md) | Prioritize attack paths | Graph or notes + ROE | Ranked path list | **chain-builder** or **validator** |
+| [validator](agents/validator.md) | Finding QA | Single finding + evidence | PASS / KILL / DOWNGRADE / CHAIN | **report-writer** if PASS; else stop |
+| [report-writer](agents/report-writer.md) | Report drafting | Validated findings set | Report sections | Customer delivery (human) |
+| [chain-builder](agents/chain-builder.md) | Multi-hop chains | Confirmed primitives | Chain narrative | **validator** then **report-writer** |
+| [ad-cs-auditor](agents/ad-cs-auditor.md) | PKI / ESC review | Certipy-style findings, CA names | ESC-oriented evidence list | **validator** / **report-writer** |
+| [autopilot](agents/autopilot.md) | Phased checklist | ROE + time box | Checklist state | **Stop** for human if ROE unclear |
+
+---
+
+## Install (three commands or fewer)
+
+**Claude Code** (default — copies to `~/.claude/skills` and `~/.claude/commands`):
+
+```bash
+git clone https://github.com/Evaluris-Solutions/claude-active-directory.git
+cd claude-active-directory
+chmod +x install.sh scripts/install.sh scripts/convert.sh && ./install.sh
+```
+
+**Cursor** (uses `~/.cursor/skills` and `~/.cursor/commands`; paths may vary by Cursor version — verify in Cursor docs if commands do not appear):
+
+```bash
+git clone https://github.com/Evaluris-Solutions/claude-active-directory.git
+cd claude-active-directory
+chmod +x install.sh scripts/install.sh scripts/convert.sh && ./install.sh cursor
+```
+
+**Gemini / other CLIs** — no single global path across releases; run `./install.sh gemini` for manual copy instructions, or use `./scripts/convert.sh --flat ./export` then import flat markdown per your CLI’s docs.
+
+**Advanced:** `./install.sh all` installs to both Claude and Cursor home locations. **`./scripts/convert.sh --flat <dir>`** exports each `SKILL.md` as `<skill-name>.md` for tools that expect a flat tree.
+
+---
+
+## Authorized use
+
+Use **only** on systems you own or are **explicitly authorized** to test in writing. Unauthorized access is illegal. Maintain a clear **rules of engagement** (domains, DCs, subnets, destructive vs read-only, spray approval). **Validate** findings before customer-facing reports. See [rules/hunting.md](rules/hunting.md). Vulnerabilities in **this repository’s code** — see [SECURITY.md](SECURITY.md).
+
+---
+
+## Documentation and contributing
 
 | Resource | Description |
 |----------|-------------|
-| [docs/ad-glossary.md](docs/ad-glossary.md) | AD / Kerberos terms used across skills |
-| [docs/ad-resources.md](docs/ad-resources.md) | Curated external references (links only) |
 | [CLAUDE.md](CLAUDE.md) | Plugin layout: skills, commands, tools, memory |
+| [docs/ad-glossary.md](docs/ad-glossary.md) | AD / Kerberos terms |
+| [docs/ad-resources.md](docs/ad-resources.md) | MITRE, BloodHound, Impacket, Certipy, Microsoft docs (links only) |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute skills and commands |
+| [CHANGELOG.md](CHANGELOG.md) | Release history |
 
 ---
 
 ## Use case
 
-Offensive security teams need more than a list of tools: they need **consistent methodology**, **evidence discipline**, **finding validation**, and **client-ready reports**. Claude Active Directory is a **Claude Code plugin** that packages skills, slash commands, agents, and helper scripts around **authorized** Active Directory assessments — from reconnaissance and credential attacks through privilege escalation, lateral movement, and AD CS misconfigurations.
+Offensive security teams need **consistent methodology**, **evidence discipline**, **finding validation**, and **client-ready reports**. This repo packages skills, slash commands, agents, and Python helpers around **authorized** Active Directory assessments.
 
----
-
-## Quick start
-
-**1. Install**
-
-```bash
-cd claude-active-directory
-chmod +x install.sh && ./install.sh
-```
-
-**2. Load rules of engagement**
-
-Confirm written authorization, in-scope domains/controllers, and forbidden actions before any testing.
-
-**3. Run the workflow**
-
-```bash
-claude
-
-/recon corp.local              # DNS, LDAP, SMB, user/SPN discovery, BloodHound prep
-/hunt corp.local               # Offensive phase: cred attacks, relay, delegation, AD CS — within ROE
-/scope                         # Re-check ROE / target allow list
-/validate                      # Validate a finding (evidence + impact)
-/report                        # Engagement-style technical report
-```
-
-**Optional:** `bash install_tools.sh` documents common external tools (Impacket, Certipy, CrackMapExec, SharpHound, etc.).
-
-**Optional:** `python3 tools/hunt.py --target corp.local` for scripted orchestration stubs.
-
----
-
-## Commands (names unchanged)
-
-| Command | Role |
-|--------|------|
-| `/recon` | Domain/LDAP/DNS/SMB enumeration; Kerberos pre-auth; SPN/users; SharpHound collection prep |
-| `/hunt` | Credential abuse, Kerberos attacks, NTLM relay opportunities, delegation, AD CS — **only inside ROE** |
-| `/scope` | Rules of engagement — allowed domains/DCs, exclusions, destructive vs read-only |
-| `/validate` / `/triage` | Internal finding validation (evidence, blast radius, reproducibility) |
-| `/report` | Engagement / technical report outline |
-| `/chain` | Attack path chaining (e.g. kerberoast → crack → lateral → escalation) |
-| `/surface` | Prioritize hosts/paths (e.g. from BloodHound or notes) |
-| `/autopilot` | Phased checklist within ROE (not unsupervised internet-wide testing) |
-| `/intel` | DC/OS build and patch intel; known abuse patterns for versions |
-| `/resume` / `/remember` | Engagement memory and continuity |
-| `/web3-audit` | **Repurposed:** AD CS / PKI and certificate-template audit workflow (filename kept for install compatibility) |
-
----
-
-## Skills
-
-| Skill folder | Focus |
-|-------------|--------|
-| `ad-pentest` | Master workflow: ROE, kill chain, evidence |
-| `ad-methodology` | Phases, tool routing, session discipline |
-| `ad-recon` | DNS, LDAP, SMB, users, passwords policy, SPNs, trusts |
-| `ad-attack-classes` | Kerberoasting, AS-REP, delegation, ACL abuse, lateral movement, etc. |
-| `ad-arsenal` | Commands, OPSEC, lab-safe patterns |
-| `ad-cs-pki` | AD CS templates, ESC1–ESC11 evidence, DC mapping posture |
-| `engagement-reporting` | Executive + technical reporting, optional MITRE appendix |
-| `finding-validation` | Gates, AD false positives, severity rubric, ATT&CK mapping |
-
----
-
-## Agents
-
-| Agent | Role |
-|--------|------|
-| **recon-agent** | Domain reconnaissance and collection guidance |
-| **recon-ranker** | Prioritize paths from graph + context |
-| **validator** | Evidence and impact for AD findings |
-| **report-writer** | Engagement reports |
-| **chain-builder** | Multi-hop escalation chains |
-| **ad-cs-auditor** | PKI / template / ESC-focused review |
-| **autopilot** | ROE-safe phased automation outline |
+**Optional:** `bash install_tools.sh` — documents common external tools (Impacket, Certipy, NetExec, SharpHound, etc.). **`python3 tools/hunt.py --target corp.local`** — orchestration stubs.
 
 ---
 
@@ -158,25 +169,24 @@ claude
 claude-active-directory/
 ├── skills/           # 8 AD skill domains (SKILL.md each)
 ├── commands/         # 13 slash commands
-├── agents/             # 7 agent briefs
-├── tools/              # Python/shell helpers (orchestration, ROE, validate, report)
-├── memory/             # Engagement journal, patterns, audit log, schemas
-├── mcp/                # Optional Burp MCP client
+├── agents/           # 7 agent briefs
+├── scripts/          # install.sh (multi-tool), convert.sh, helpers
+├── tools/            # Python/shell helpers (ROE, validate, report, hunt)
+├── memory/           # Engagement journal, patterns, audit log, schemas
+├── mcp/              # Optional Burp MCP client
 ├── tests/
-├── docs/               # Glossary, AD resource pointers
-├── rules/              # Always-on engagement rules
+├── .github/          # CI, issue + PR templates
+├── docs/
+├── rules/
 ├── hooks/
-└── wordlists/          # Password spray lists (authorized use only)
+├── wordlists/        # Authorized spray lists only
+└── targets/
 ```
-
----
-
-## Legal and ethics
-
-**Use only on systems you own or are explicitly authorized to test in writing.** Unauthorized access is illegal. This software is provided for **professional security assessments** with clear rules of engagement. Evaluris Solutions and the authors are not responsible for misuse.
 
 ---
 
 ## License
 
 MIT — see [LICENSE](LICENSE). Copyright **Evaluris Solutions**. Authored by **Evaluris Team** — [https://evaluris.ae](https://evaluris.ae).
+
+**Discoverability:** After polishing, consider a PR to community awesome-lists (e.g. ComposioHQ / travisvn **awesome-claude-skills**) per their contribution guidelines.

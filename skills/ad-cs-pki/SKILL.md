@@ -1,15 +1,34 @@
 ---
 name: ad-cs-pki
-description: Active Directory Certificate Services — enterprise CA, certificate templates, enrollment permissions, ESC1 through ESC11 abuse labels (community/Certipy), DC certificate-mapping posture, Certipy-oriented triage, web enrollment, relay surfaces. For authorized security assessments. AD CS, PKI, certificate templates, pentest.
+description: Use when triaging or reporting authorized Active Directory Certificate Services risk—enterprise CA inventory, template permissions, ESC1–ESC11 style labels from Certipy-style tools, DC certificate mapping and strong-binding evidence, web enrollment and RPC relay surfaces. Use with /web3-audit command content and evidence tables before claiming production-wide impact.
 ---
 
 # AD CS / PKI
 
 **Evaluris Solutions** — [evaluris.ae](https://evaluris.ae)
 
+## External references
+
+- [docs/ad-resources.md](../../docs/ad-resources.md) — Certified Pre-Owned lineage, Certipy wiki, Microsoft PKI hardening  
+- [finding-validation](../finding-validation/SKILL.md) — false positives when enrollment is blocked
+
+## Usage examples
+
+1. **First CA pass** — Operator runs `certipy find` (or equivalent), archives **redacted** output, fills ESC row in evidence bundle for any template flagged enrollable.  
+2. **ESC10 discussion** — Assessor samples `StrongCertificateBindingEnforcement` / `CertificateMappingMethods` on two DCs, documents values only for in-scope hosts.  
+3. **Web enrollment** — Burp MCP is used only where HTTP scope exists; screenshots redact session cookies.
+
+## Troubleshooting
+
+| Problem | What to do |
+|---------|------------|
+| Tool shows ESC* but enrollment fails | Treat as [finding-validation](../finding-validation/SKILL.md) “enrollment blocked” path; capture ACL or workflow denial. |
+| ESC numbering differs from blog post | Trust **your tool version’s label**; cite version string in appendix. |
+| **ESC12 / ESC13** labels appear in newer releases | Record the label and vendor reference your build prints; community numbering extends past ESC11 — update glossary when your team standardizes on definitions. |
+
 ## Why it matters
 
-Misconfigured templates, **weak certificate-to-account mapping**, and **exposed enrollment interfaces** are common **high-impact** paths to domain-authenticating credentials. Community tooling groups scenarios under **ESC1–ESC11**; labels evolve — **cite the tool version and SpecterOps / Certipy references** in your appendix.
+Misconfigured templates, **weak certificate-to-account mapping**, and **exposed enrollment interfaces** are common **high-impact** paths to domain-authenticating credentials. Community tooling groups scenarios under **ESC1–ESC11** (and beyond in some forks); labels evolve — **cite the tool version and SpecterOps / Certipy references** in your appendix.
 
 ## Enumeration
 

@@ -4,6 +4,16 @@ description: AD CS and PKI security review — enterprise CA inventory, certific
 
 # /web3-audit (AD CS / PKI)
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/web3-audit` or `/web3-audit <context>` |
+| **ROE gate** | CA hosts, web enrollment URLs, and relay surfaces must be **in-scope**; cert enrollment attempts require explicit approval. |
+| **Outputs** | CA/template inventory, ESC-aligned evidence bundle fields per `ad-cs-pki` skill. |
+| **Stop conditions** | Enrollment or relay step not approved → document theoretical risk only. |
+| **Related** | [`skills/ad-cs-pki`](../skills/ad-cs-pki/SKILL.md), [`agents/ad-cs-auditor`](../agents/ad-cs-auditor.md), [`commands/scope`](scope.md) |
+
 > **Note:** Command filename is unchanged for install compatibility. This command is **only** Active Directory Certificate Services / PKI — **not** smart contracts.
 
 ## Workflow

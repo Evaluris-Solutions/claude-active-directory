@@ -1,6 +1,6 @@
 ---
 name: ad-attack-classes
-description: Active Directory attack techniques — Kerberoasting, AS-REP roasting, coerced authentication awareness, Golden and Silver tickets (lab sensitivity), delegation and RBCD, ACL abuse, DCSync, NTLM relay, LAPS, shadow credentials, GPP, trust paths, AD-joined SQL, lateral movement matrix. Authorized pentest and red team. Kerberos, NTLM, delegation.
+description: Use when classifying or explaining authorized Active Directory attack techniques—Kerberos and NTLM paths, coercion awareness, delegation and RBCD, ACL and DCSync concepts, LAPS and shadow credentials, GPP, trust paths, AD-joined SQL pivots, and lateral movement by protocol. Use as a reference when writing findings or chains, not as authorization to test out of scope.
 ---
 
 # AD Attack Classes (reference)
@@ -8,6 +8,25 @@ description: Active Directory attack techniques — Kerberoasting, AS-REP roasti
 **Evaluris Solutions** — [evaluris.ae](https://evaluris.ae) — **authorized use only.**
 
 **Related:** [ad-recon](../ad-recon/SKILL.md) · [ad-cs-pki](../ad-cs-pki/SKILL.md) · [ad-arsenal](../ad-arsenal/SKILL.md) · [Glossary](../../docs/ad-glossary.md)
+
+## External references
+
+- [ad-cs-pki](../ad-cs-pki/SKILL.md) — ESC evidence bundles  
+- [docs/ad-resources.md](../../docs/ad-resources.md)
+
+## Usage examples
+
+1. **Report writing** — Writer links Kerberoast finding to “Credential Access” narrative and cites lateral matrix for WinRM vs SMB ROE notes.  
+2. **Chain review** — Validator checks whether coercion step was in-scope and documented before relay language appears in the chain.  
+3. **SQL in scope** — Operator uses AD-joined SQL subsection to limit enumeration to instance metadata and linked-server names without `xp_cmdshell` unless ROE allows.
+
+## Troubleshooting
+
+| Problem | What to do |
+|---------|------------|
+| Technique name without environment proof | Downgrade to “configuration risk” unless demonstrated under ROE. |
+| Golden/Silver ticket language in production report | Remove or lab-only disclaimer per this skill; align with legal review. |
+| Overlap with AD CS | Point PKI-specific steps to `ad-cs-pki`; keep delegation rows here brief. |
 
 ---
 

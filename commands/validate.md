@@ -4,6 +4,16 @@ description: Validate an Active Directory finding for internal reporting — rep
 
 # /validate
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/validate` |
+| **ROE gate** | Finding must reference **in-scope** assets only; re-check scope if asset identity is unclear. |
+| **Outputs** | Markdown under `findings/` via `tools/validate.py`; verdict PASS/KILL/DOWNGRADE/CHAIN. |
+| **Stop conditions** | Insufficient evidence → KILL or PARK until replayable steps exist. |
+| **Related** | [`skills/finding-validation`](../skills/finding-validation/SKILL.md), [`commands/triage`](triage.md) |
+
 Run structured validation before anything goes to a client report.
 
 ## Gates

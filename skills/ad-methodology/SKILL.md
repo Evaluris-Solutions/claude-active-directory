@@ -1,11 +1,30 @@
 ---
 name: ad-methodology
-description: Active Directory penetration testing methodology — phases, skill reading order, optional PingCastle-style baselines, stuck routing, tool selection, MITRE-ready reporting pointers, session discipline, red team vs internal pacing. Kerberos, Windows domain, pentest.
+description: Use when planning or unblocking an authorized Active Directory assessment—phasing work, choosing which skill to open next, routing when stuck (no creds, empty BH graph, SQL in scope), or aligning deliverables with MITRE-ready reporting. Covers session discipline, optional read-only baselines, and tool routing. Does not replace ROE written with the customer.
 ---
 
 # AD Methodology — How to Run the Engagement
 
 **Evaluris Solutions** — [evaluris.ae](https://evaluris.ae)
+
+## External references
+
+- [ad-pentest](../ad-pentest/SKILL.md) — master workflow  
+- [docs/ad-resources.md](../../docs/ad-resources.md)
+
+## Usage examples
+
+1. **Monday kickoff** — Lead opens this skill to walk the team through skill reading order and time-boxes noisy tests against the signed ROE.  
+2. **Stuck after recon** — Trusts are visible but no creds; the team uses the **stuck table** row and schedules trust-targeted LDAP only on allow-listed names.  
+3. **Detection workshop prep** — Methodology’s MITRE pointer plus [finding-validation](../finding-validation/SKILL.md) mapping table feeds a dry-run with the customer SOC.
+
+## Troubleshooting
+
+| Problem | What to do |
+|---------|------------|
+| Team keeps jumping to exploits | Re-center on **five phases** and `/scope`; log what was skipped for the report. |
+| PingCastle output conflicts with offensive proof | Treat scanner output as **hints** only; offensive claims still need replayable steps. |
+| Tool routing outdated | Prefer NetExec / CrackMapExec per [ad-arsenal](../ad-arsenal/SKILL.md); verify binary names in the appendix. |
 
 ## Mindset
 
@@ -49,7 +68,7 @@ Use this as a **default navigation** order; loop back whenever a phase stalls.
 ## Tool routing (examples)
 
 - **LDAP / users / groups** → ldapsearch, bloodyAD, windapsearch  
-- **Sessions / SMB** → CrackMapExec  
+- **Sessions / SMB** → NetExec / CrackMapExec  
 - **Kerberos tickets** → getTGT/getST (Impacket), Rubeus  
 - **AD CS** → Certipy, manual `certipy find` / `certipy req` per ROE  
 - **Graph** → SharpHound → BloodHound  

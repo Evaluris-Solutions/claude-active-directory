@@ -4,6 +4,16 @@ description: Active Directory offensive phase — credential attacks (spray if a
 
 # /hunt
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/hunt <domain.fqdn>` |
+| **ROE gate** | **Strict** — spray, relay, coercion, destructive steps require explicit items from `/scope`. Re-read ROE before each noisy phase. |
+| **Outputs** | Redacted technique notes, ticket/template identifiers, paths for `/validate` and `/report`. |
+| **Stop conditions** | Out-of-scope host, missing spray approval, or SOC halt → stop immediately. |
+| **Related** | [`skills/ad-attack-classes`](../skills/ad-attack-classes/SKILL.md), [`commands/scope`](scope.md), [`commands/validate`](validate.md) |
+
 **Offensive testing** against an **authorized** Active Directory domain. Do nothing that violates ROE (no out-of-scope subnets, no unapproved destructive actions).
 
 ## Before you start

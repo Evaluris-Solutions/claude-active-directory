@@ -2,7 +2,7 @@
 
 This repo is a **Claude Code** plugin for **authorized Active Directory / Windows domain offensive security** (internal pentest, red team, lab). It is maintained by **Evaluris Solutions** ([https://evaluris.ae](https://evaluris.ae)) as part of the **Department of Offensive Security (DoOS)**.
 
-**Docs:** [docs/ad-glossary.md](docs/ad-glossary.md) (terms) · [docs/ad-resources.md](docs/ad-resources.md) (external links)
+**Docs:** [docs/ad-glossary.md](docs/ad-glossary.md) (terms) · [docs/ad-resources.md](docs/ad-resources.md) (external links) · [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md)
 
 ## What's here
 
@@ -85,11 +85,17 @@ claude
 # /report
 ```
 
-## Install skills
+## Install skills and commands
 
 ```bash
-chmod +x install.sh && ./install.sh
+chmod +x install.sh scripts/install.sh scripts/convert.sh
+./install.sh                                 # Claude Code (~/.claude/…)
+./install.sh cursor                          # Cursor (~/.cursor/…)
+./scripts/install.sh gemini                  # Prints manual paths for other CLIs
+./scripts/convert.sh --flat ./export-skills  # Flat markdown export
 ```
+
+CI: `.github/workflows/ci.yml` runs `pytest` on Python 3.8 and 3.12.
 
 ## Critical rules (always active)
 

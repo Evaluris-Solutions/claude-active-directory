@@ -1,11 +1,30 @@
 ---
 name: finding-validation
-description: Validate AD pentest findings — reproducibility, scope, blast radius, false positives, MITRE ATT&CK mapping, severity rubric, evidence completeness. Seven-question gate for internal assessments. Pentest quality.
+description: Use when validating an Active Directory finding before client or management delivery, or when triaging BloodHound edges, Kerberoast lists, or AD CS template visibility for false positives. Covers seven-question gates, AD-specific KILL/DOWNGRADE rules, narrative severity, and optional MITRE ATT&CK mapping. Improves pentest report defensibility.
 ---
 
 # Finding Validation (internal)
 
 **Evaluris Solutions**
+
+## External references
+
+- [engagement-reporting](../engagement-reporting/SKILL.md) — where validated findings land in the report  
+- [docs/ad-glossary.md](../../docs/ad-glossary.md) — terms (Tier 0, ESC, delegation)
+
+## Usage examples
+
+1. **BloodHound path noise** — An edge shows `GenericAll` to a user, but no session exists; operator applies the AD-specific table and **DOWNGRADE**s to “hardening” unless a primitive is demonstrated in ROE.  
+2. **Kerberoast without crack** — Service accounts have weak-looking SPNs but cracking is out of scope; finding is framed as **configuration exposure** with impact not demonstrated.  
+3. **Enterprise SOC asks for ATT&CK** — After PASS, the operator attaches T1558.003 (verify current ID) only because Kerberoasting was **reproduced** with evidence.
+
+## Troubleshooting
+
+| Problem | What to do |
+|---------|------------|
+| Verdict stuck between CHAIN and multiple findings | Merge into one **CHAIN** narrative with a single blast-radius paragraph. |
+| Customer rejects severity | Re-read Tier 0 / forest rubric; separate **demonstrated** vs **theoretical** impact. |
+| MITRE ID outdated | Re-check [attack.mitre.org](https://attack.mitre.org/) for the assessment year; note version in appendix. |
 
 ## Before reporting a finding
 

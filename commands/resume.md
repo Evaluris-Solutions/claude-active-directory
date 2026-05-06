@@ -4,6 +4,16 @@ description: Resume a previous Active Directory engagement — read journal, rec
 
 # /resume
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/resume <domain>` |
+| **ROE gate** | Reload **current** `/scope` — scope may have changed since last session; do not assume old ROE. |
+| **Outputs** | Pending vs completed techniques; journal continuity from `memory/`. |
+| **Stop conditions** | Journal missing or corrupted → reconcile with customer before continuing intrusive work. |
+| **Related** | [`commands/remember`](remember.md), [`skills/ad-methodology`](../skills/ad-methodology/SKILL.md) |
+
 ## Steps
 
 1. Open `memory/` JSONL journals and last `recon/<domain>/` timestamps.

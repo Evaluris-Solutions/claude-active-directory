@@ -4,6 +4,16 @@ description: Active Directory reconnaissance — DNS SRV/LDAP DC discovery, LDAP
 
 # /recon
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/recon <domain.fqdn>` |
+| **ROE gate** | **Requires** confirmed `/scope` (or equivalent written ROE): domain, DCs/subnets, exclusions, anonymous LDAP if used. No out-of-scope enumeration. |
+| **Outputs** | `recon/<domain>/` folder notes, DNS/LDAP/Kerberos/BH prep artifacts per skill. |
+| **Stop conditions** | Zone transfer or intrusive scan denied by policy → document and continue only with allowed methods. |
+| **Related** | [`skills/ad-recon`](../skills/ad-recon/SKILL.md), [`commands/scope`](scope.md) |
+
 Authorized **domain** reconnaissance — not internet subdomain mass-scanning unless the ROE defines that.
 
 ## Preconditions

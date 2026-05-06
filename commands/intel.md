@@ -4,6 +4,16 @@ description: Domain controller and Windows Server build intel — patch level, k
 
 # /intel
 
+## Command contract
+
+| Field | Detail |
+|-------|--------|
+| **Invocation** | `/intel <domain>` |
+| **ROE gate** | DCs and management hosts queried for build intel must be **in-scope**; no internet-wide CVE hunting unrelated to customer assets. |
+| **Outputs** | Structured intel from `tools/learn.py` / `tools/intel_engine.py`; pattern hints in `memory/pattern_db.py`. |
+| **Stop conditions** | Customer has not approved outbound GitHub/NVD pulls from engagement jump box → use offline build list only. |
+| **Related** | [`commands/scope`](scope.md), [`commands/recon`](recon.md) |
+
 ## Purpose
 
 Replace “CVE bounty intel” with **infrastructure intel**:

@@ -1,6 +1,6 @@
 ---
 name: ad-recon
-description: Active Directory reconnaissance — DNS, trusts, LDAP/LDAPS and signing policy, gMSA discovery, SMB signing and legacy protocol notes, password spray gates, Kerberos SPN and pre-auth, BloodHound collection methods, LDAP filter cookbook. Authorized testing only. Pentest, LDAP, Kerberos, BloodHound.
+description: Use when performing or planning authorized Active Directory reconnaissance—DNS and DC SRV, forest and trust mapping, LDAP/LDAPS and signing posture, gMSA discovery, SMB signing, password policy and spray approval gates, Kerberos SPN and pre-auth discovery, BloodHound collection choice, and LDAP filter cookbook. Use before cred-heavy phases once ROE allows enumeration.
 ---
 
 # AD Reconnaissance
@@ -8,6 +8,25 @@ description: Active Directory reconnaissance — DNS, trusts, LDAP/LDAPS and sig
 **Evaluris Solutions** — [evaluris.ae](https://evaluris.ae) — **authorized assessments only.**
 
 **Related:** [ad-methodology](../ad-methodology/SKILL.md) · [ad-attack-classes](../ad-attack-classes/SKILL.md) · [Glossary](../../docs/ad-glossary.md)
+
+## External references
+
+- [docs/ad-glossary.md](../../docs/ad-glossary.md) · [docs/ad-resources.md](../../docs/ad-resources.md)  
+- `tools/ad_recon.sh` — baseline folder layout; `recon/<domain>/notes/ldap-goals.txt`
+
+## Usage examples
+
+1. **First week internal** — Analyst runs LDAP cookbook rows for SPN and `DONT_REQUIRE_PREAUTH`, records PSO vs default policy, and chooses BloodHound `DCOnly` because red team ROE demands lower noise.  
+2. **Multi-domain ROE** — Trust partners are listed from DNS/LDAP; SID filtering is documented as awareness before any cross-domain session is attempted.  
+3. **Collector blocked** — EDR blocks SharpHound; operator falls back to manual LDAP goals, notes the gap for the customer, and suggests customer-run collection.
+
+## Troubleshooting
+
+| Problem | What to do |
+|---------|------------|
+| LDAP bind fails with “stronger auth required” | Document signing / LDAPS requirement; switch tooling to TLS or GSSAPI per customer policy. |
+| Bitwise LDAP filters return unexpected rows | Re-verify **userAccountControl** masks against current Microsoft docs; cite filter version in notes. |
+| Spray approval missing | **Do not spray** — escalate to customer sign-off per password policy section. |
 
 ---
 

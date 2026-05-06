@@ -1,11 +1,31 @@
 ---
 name: ad-arsenal
-description: Active Directory toolkit patterns — NetExec and CrackMapExec, Impacket, Certipy, SharpHound, Windows Event IDs for SOC narratives, MITRE mapping pointers, OPSEC and telemetry. Lab versus production caution. Pentest, red team, Kerberos.
+description: Use when selecting command patterns for authorized AD testing or when documenting OPSEC and defender-visible telemetry—NetExec/CrackMapExec, Impacket, Certipy, SharpHound, representative Windows Event IDs, and certificate enrollment logs. Use to enrich report appendices and kickoff expectations, not for EDR evasion guidance.
 ---
 
 # AD Arsenal — Patterns and OPSEC
 
 **Evaluris Solutions**
+
+## External references
+
+- [ad-recon](../ad-recon/SKILL.md) — LDAP cookbook  
+- [finding-validation](../finding-validation/SKILL.md) — MITRE mapping when correlating logs to findings  
+- [docs/ad-resources.md](../../docs/ad-resources.md)
+
+## Usage examples
+
+1. **Appendix hygiene** — Operator pastes **redacted** `netexec smb … --shares` lines that match the engagement timestamp.  
+2. **SOC briefing** — Consultant cites **4768/4769** volume interpretation caveats from the Event ID table when customer asks what Kerberoasting looks like in logs.  
+3. **Cert triage** — `certipy find` output is captured before any `req`; CA name and template appear in every CS-related finding.
+
+## Troubleshooting
+
+| Problem | What to do |
+|---------|------------|
+| Command fails on target OS | Record version and error string; do not fabricate success output. |
+| Customer asks “is this stealth?” | Redirect to **telemetry classes** table; avoid evasion recipes. |
+| Flag syntax changed in tool fork | Note NetExec vs CrackMapExec in appendix; verify `--help` for the installed version. |
 
 ## Principles
 

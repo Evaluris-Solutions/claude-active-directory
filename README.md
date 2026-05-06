@@ -189,4 +189,3 @@ claude-active-directory/
 
 MIT — see [LICENSE](LICENSE). Copyright **Evaluris Solutions**. Authored by **Evaluris Team** — [https://evaluris.ae](https://evaluris.ae).
 
-**Discoverability:** After polishing, consider a PR to community awesome-lists (e.g. ComposioHQ / travisvn **awesome-claude-skills**) per their contribution guidelines.
